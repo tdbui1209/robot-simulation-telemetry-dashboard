@@ -19,6 +19,7 @@ motion:
     vx: 0.5
     vy: 0.0
     yaw_rate: 0.05
+  gait_frequency_hz: 1.2
 
 streaming:
   protocol: websocket_or_http_or_udp

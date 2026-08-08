@@ -23,6 +23,14 @@ def test_next_packet_contains_required_metadata_fields(experiment_config):
     assert "timestamp" in packet
     assert "sequence" in packet
     assert "sim_time" in packet
+    assert "base_pose" in packet
+    assert "sensors" in packet
+    assert "control_command" in packet
+    assert "position" in packet["base_pose"]
+    assert "mode" in packet["control_command"]
+    assert "x" in packet["base_pose"]["position"]
+    assert "y" in packet["base_pose"]["position"]
+    assert "z" in packet["base_pose"]["position"]
 
 
 def test_timestamp_is_iso_format_and_timezone_aware(experiment_config):

@@ -14,6 +14,17 @@ def experiment_config() -> dict:
             "duration_sec": 10,
             "frequency_hz": 30,
             "random_state": 42,
+        },
+        "robot": {
+            "mass_kg": 60,
+            "base_height_m": 0.94,
+        },
+        "motion": {
+            "mode": "walk",
+            "target_velocity": {
+                "vx": 0.5,
+            },
+            "gait_frequency_hz": 1.2,
         }
     }
 
