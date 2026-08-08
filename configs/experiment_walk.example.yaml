@@ -20,6 +20,10 @@ motion:
     vy: 0.0
     yaw_rate: 0.05
   gait_frequency_hz: 1.2
+  lateral_sway_m: 0.03
+  vertical_bob_m: 0.025
+  roll_factor_std: 0.07
+  pitch_factor_std: 0.08
 
 streaming:
   protocol: websocket_or_http_or_udp

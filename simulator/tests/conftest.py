@@ -23,8 +23,14 @@ def experiment_config() -> dict:
             "mode": "walk",
             "target_velocity": {
                 "vx": 0.5,
+                "vy": 0.0,
+                "yaw_rate": 0.05,
             },
             "gait_frequency_hz": 1.2,
+            "lateral_sway_m": 0.03,
+            "vertical_bob_m": 0.025,
+            "roll_factor_std": 0.07,
+            "pitch_factor_std": 0.08,
         },
         "noise": {
             "imu_accel_std": 0.03,

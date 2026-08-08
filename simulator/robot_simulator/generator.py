@@ -1,4 +1,5 @@
 from datetime import datetime, timezone
+import math
 
 from simulator.robot_simulator.gait import gait_phase
 from simulator.robot_simulator.sensors import generate_sensors
@@ -25,8 +26,14 @@ class TelemetryGenerator:
         mode = motion["mode"]
 
         x = target["vx"] * self.sim_time
-        y = 0
-        z = robot["base_height_m"]
+        y = motion["lateral_sway_m"] * math.sin(left_phase)
+        z = robot["base_height_m"] + motion["vertical_bob_m"] * math.sin(2 * left_phase)
+
+        roll_factor = motion["roll_factor_std"] if mode == "unstable_walk" else motion["roll_factor_std"] / 2
+        pitch_factor = motion["pitch_factor_std"] if mode == "unstable_walk" else motion["pitch_factor_std"] / 2
+        roll = roll_factor * math.sin(left_phase)
+        pitch = pitch_factor * math.sin(left_phase + math.pi / 3)
+        yaw = target["yaw_rate"] * self.sim_time
 
         sensors = generate_sensors(
             left_phase,
@@ -36,6 +43,8 @@ class TelemetryGenerator:
             noise["gyro_std"],
             noise["foot_force_std_n"],
         )
+
+        actual_vx = target["vx"] + 0.02 * math.sin(left_phase)
 
         metrics = generate_metrics(
             exp["frequency_hz"],
@@ -52,7 +61,10 @@ class TelemetryGenerator:
             "sequence": self.sequence,
             "sim_time": self.sim_time,
             "base_pose": {
-                "position": {"x": x, "y": y, "z": z}
+                "position": {"x": x, "y": y, "z": z},
+                "orientation": {"roll": roll, "pitch": pitch, "yaw": yaw},
+                "linear_velocity": {"vx": actual_vx, "vy": 0.0, "vz": 0.0},
+                "angular_velocity": {"wx": roll, "wy": pitch, "wz": target["yaw_rate"]}
             },
             "sensors": sensors,
             "control_command": {

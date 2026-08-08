@@ -28,10 +28,22 @@ def test_next_packet_contains_required_metadata_fields(experiment_config):
     assert "control_command" in packet
     assert "metrics" in packet
     assert "position" in packet["base_pose"]
+    assert "orientation" in packet["base_pose"]
+    assert "linear_velocity" in packet["base_pose"]
+    assert "angular_velocity" in packet["base_pose"]
     assert "mode" in packet["control_command"]
     assert "x" in packet["base_pose"]["position"]
     assert "y" in packet["base_pose"]["position"]
     assert "z" in packet["base_pose"]["position"]
+    assert "roll" in packet["base_pose"]["orientation"]
+    assert "pitch" in packet["base_pose"]["orientation"]
+    assert "yaw" in packet["base_pose"]["orientation"]
+    assert "vx" in packet["base_pose"]["linear_velocity"]
+    assert "vy" in packet["base_pose"]["linear_velocity"]
+    assert "vz" in packet["base_pose"]["linear_velocity"]
+    assert "wx" in packet["base_pose"]["angular_velocity"]
+    assert "wy" in packet["base_pose"]["angular_velocity"]
+    assert "wz" in packet["base_pose"]["angular_velocity"]
 
 
 def test_timestamp_is_iso_format_and_timezone_aware(experiment_config):
