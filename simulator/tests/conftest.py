@@ -37,6 +37,11 @@ def experiment_config() -> dict:
             "gyro_std": 0.005,
             "latency_std_ms": 5,
             "foot_force_std_n": 15,
+        },
+        "anomalies": {
+            "enabled": True,
+            "latency_spike_probability": 0.01,
+            "packet_drop_probability": 0.005,
         }
     }
 

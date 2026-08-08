@@ -32,6 +32,7 @@ def test_next_packet_contains_required_metadata_fields(experiment_config):
     assert "linear_velocity" in packet["base_pose"]
     assert "angular_velocity" in packet["base_pose"]
     assert "mode" in packet["control_command"]
+    assert "target_velocity" in packet["control_command"]
     assert "x" in packet["base_pose"]["position"]
     assert "y" in packet["base_pose"]["position"]
     assert "z" in packet["base_pose"]["position"]

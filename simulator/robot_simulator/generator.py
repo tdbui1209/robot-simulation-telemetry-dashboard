@@ -4,6 +4,7 @@ import math
 from simulator.robot_simulator.gait import gait_phase
 from simulator.robot_simulator.sensors import generate_sensors
 from simulator.robot_simulator.metrics import generate_metrics
+from simulator.robot_simulator.anomalies import anomaly_flags
 
 
 class TelemetryGenerator:
@@ -18,6 +19,12 @@ class TelemetryGenerator:
         robot = self.config["robot"]
         motion = self.config["motion"]
         noise = self.config["noise"]
+        flags = anomaly_flags(self.config)
+
+        if flags.get("packet_drop"):
+            self.sequence += 2
+        else:
+            self.sequence += 1
 
         self.sim_time += self.dt
 
@@ -45,11 +52,15 @@ class TelemetryGenerator:
         )
 
         actual_vx = target["vx"] + 0.02 * math.sin(left_phase)
-
+        tracking_error = abs(target["vx"] - actual_vx)
         metrics = generate_metrics(
             exp["frequency_hz"],
             self.dt * 1000,
             noise["latency_std_ms"],
+            roll,
+            pitch,
+            tracking_error,
+            latency_spike=flags.get("latency_spike", False),
         )
 
         return {
@@ -71,5 +82,5 @@ class TelemetryGenerator:
                 "mode": mode,
                 "target_velocity": target,
             },
-            "metrics": metrics
+            "metrics": metrics,
         }

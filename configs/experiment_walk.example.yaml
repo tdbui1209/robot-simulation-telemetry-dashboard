@@ -9,7 +9,6 @@ experiment:
   random_seed: 42
 
 robot:
-  type: humanoid
   mass_kg: 60
   base_height_m: 0.94
 
@@ -43,4 +42,3 @@ anomalies:
   enabled: true
   latency_spike_probability: 0.01
   packet_drop_probability: 0.005
-  foot_slip_probability: 0.003
