@@ -1,0 +1,91 @@
+[project]
+name = "robot-simulation-telemetry-dashboard"
+version = "0.1.0"
+description = "A robotics simulation telemetry platform skeleton for experiment configuration, streaming, JSONL logging, replay, and dashboard visualization."
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [
+  { name = "Aivan Yang" }
+]
+keywords = [
+  "robotics",
+  "simulation",
+  "telemetry",
+  "fastapi",
+  "websocket",
+  "jsonl",
+  "experiment-tracking",
+  "dashboard"
+]
+
+dependencies = [
+  "fastapi>=0.115.0",
+  "uvicorn[standard]>=0.34.0",
+  "pydantic>=2.10.0",
+  "PyYAML>=6.0.0",
+  "httpx>=0.28.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3.0",
+  "pytest-asyncio>=0.25.0",
+  "ruff>=0.8.0",
+  "mypy>=1.14.0",
+]
+
+[build-system]
+requires = ["setuptools>=75.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = [
+  "backend",
+  "simulator"
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = [
+  "backend/app/tests",
+  "simulator/tests",
+  "tests"  # test integration
+]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 89
+target-version = "py312"
+
+[tool.ruff.lint]
+select = [
+  "E",
+  "F",
+  "I",
+  "B",
+  "UP",
+]
+ignore = []
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "tab"
+line-ending = "auto"
+
+[tool.mypy]
+python_version = "3.12"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+ignore_missing_imports = true
+
+[tool.coverage.run]
+branch = true
+source = [
+  "backend",
+  "simulator"
+]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
