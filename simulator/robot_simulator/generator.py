@@ -2,6 +2,7 @@ from datetime import datetime, timezone
 
 from simulator.robot_simulator.gait import gait_phase
 from simulator.robot_simulator.sensors import generate_sensors
+from simulator.robot_simulator.metrics import generate_metrics
 
 
 class TelemetryGenerator:
@@ -32,6 +33,11 @@ class TelemetryGenerator:
             robot["mass_kg"],
         )
 
+        metrics = generate_metrics(
+            exp["frequency_hz"],
+            self.dt * 1000
+        )
+
         return {
             "schema_version": "1.0",
             "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -46,5 +52,6 @@ class TelemetryGenerator:
             "sensors": sensors,
             "control_command": {
                 "mode": mode,
-            }
+            },
+            "metrics": metrics
         }
