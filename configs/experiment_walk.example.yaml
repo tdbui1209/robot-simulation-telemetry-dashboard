@@ -33,6 +33,7 @@ noise:
   imu_accel_std: 0.03
   gyro_std: 0.005
   latency_std_ms: 5
+  foot_force_std_n: 15
 
 anomalies:
   enabled: true

@@ -8,6 +8,9 @@ from simulator.robot_simulator.sensors import (
     IMU_ACCEL_X_AMPLITUDE,
     IMU_ACCEL_Y_AMPLITUDE,
     SWING_FORCE_RATIO,
+    GYRO_X_AMPLITUDE,
+    GYRO_Y_AMPLITUDE,
+    GYRO_Z_AMPLITUDE,
     generate_sensors,
 )
 
@@ -17,9 +20,13 @@ def test_generate_sensors_returns_expected_schema():
 
     assert "imu" in sensors
     assert "acceleration" in sensors["imu"]
+    assert "gyroscope" in sensors["imu"]
     assert "ax" in sensors["imu"]["acceleration"]
     assert "ay" in sensors["imu"]["acceleration"]
     assert "az" in sensors["imu"]["acceleration"]
+    assert "gx" in sensors["imu"]["gyroscope"]
+    assert "gy" in sensors["imu"]["gyroscope"]
+    assert "gz" in sensors["imu"]["gyroscope"]
     assert "foot_contact" in sensors
 
 
@@ -56,3 +63,13 @@ def test_imu_acceleration_values_are_expected_at_positive_peak():
     assert acceleration["ax"] == pytest.approx(IMU_ACCEL_X_AMPLITUDE)
     assert acceleration["ay"] == pytest.approx(IMU_ACCEL_Y_AMPLITUDE)
     assert acceleration["az"] == pytest.approx(GRAVITY)
+
+
+def test_imu_gyroscope_values_are_expected_at_positive_peak():
+    sensors = generate_sensors(math.pi / 2, 3 * math.pi / 2, 60)
+
+    acceleration = sensors["imu"]["gyroscope"]
+
+    assert acceleration["gx"] == pytest.approx(GYRO_X_AMPLITUDE)
+    assert acceleration["gy"] == pytest.approx(GYRO_Y_AMPLITUDE)
+    assert acceleration["gz"] == pytest.approx(GYRO_Z_AMPLITUDE)

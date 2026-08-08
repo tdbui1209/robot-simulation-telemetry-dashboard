@@ -6,9 +6,12 @@ CONTACT_FORCE_RATIO = 0.75
 SWING_FORCE_RATIO = 0.04
 IMU_ACCEL_X_AMPLITUDE = 0.2
 IMU_ACCEL_Y_AMPLITUDE = 0.15
+GYRO_X_AMPLITUDE = 0.03
+GYRO_Y_AMPLITUDE = 0.03
+GYRO_Z_AMPLITUDE = 0.05
 
 
-def generate_sensors(left_phase, right_phase, mass_kg):
+def generate_sensors(left_phase, right_phase, mass_kg) -> dict:
     left_contact = math.sin(left_phase) > 0
     right_contact = math.sin(right_phase) > 0
 
@@ -22,6 +25,11 @@ def generate_sensors(left_phase, right_phase, mass_kg):
                 "ax": IMU_ACCEL_X_AMPLITUDE * math.sin(left_phase),
                 "ay": IMU_ACCEL_Y_AMPLITUDE * math.sin(left_phase),
                 "az": GRAVITY * math.sin(left_phase),
+            },
+            "gyroscope": {
+                "gx": GYRO_X_AMPLITUDE * math.sin(left_phase),
+                "gy": GYRO_Y_AMPLITUDE * math.sin(left_phase),
+                "gz": GYRO_Z_AMPLITUDE * math.sin(left_phase),
             }
         },
         "foot_contact": {
