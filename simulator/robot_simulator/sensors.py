@@ -1,4 +1,5 @@
 import math
+import random
 
 
 GRAVITY = 9.80665
@@ -11,7 +12,14 @@ GYRO_Y_AMPLITUDE = 0.03
 GYRO_Z_AMPLITUDE = 0.05
 
 
-def generate_sensors(left_phase, right_phase, mass_kg) -> dict:
+def generate_sensors(
+    left_phase: float,
+    right_phase: float,
+    mass_kg: float, 
+    imu_accel_std: float,
+    gyro_std: float,
+    foot_force_std_n: float,
+) -> dict:
     left_contact = math.sin(left_phase) > 0
     right_contact = math.sin(right_phase) > 0
 
@@ -22,20 +30,20 @@ def generate_sensors(left_phase, right_phase, mass_kg) -> dict:
     return {
         "imu": {
             "acceleration": {
-                "ax": IMU_ACCEL_X_AMPLITUDE * math.sin(left_phase),
-                "ay": IMU_ACCEL_Y_AMPLITUDE * math.sin(left_phase),
-                "az": GRAVITY * math.sin(left_phase),
+                "ax": IMU_ACCEL_X_AMPLITUDE * math.sin(left_phase) + random.gauss(sigma=imu_accel_std),
+                "ay": IMU_ACCEL_Y_AMPLITUDE * math.sin(left_phase) + random.gauss(sigma=imu_accel_std),
+                "az": GRAVITY * math.sin(left_phase) + random.gauss(sigma=imu_accel_std),
             },
             "gyroscope": {
-                "gx": GYRO_X_AMPLITUDE * math.sin(left_phase),
-                "gy": GYRO_Y_AMPLITUDE * math.sin(left_phase),
-                "gz": GYRO_Z_AMPLITUDE * math.sin(left_phase),
+                "gx": GYRO_X_AMPLITUDE * math.sin(left_phase) + random.gauss(sigma=gyro_std),
+                "gy": GYRO_Y_AMPLITUDE * math.sin(left_phase) + random.gauss(sigma=gyro_std),
+                "gz": GYRO_Z_AMPLITUDE * math.sin(left_phase) + random.gauss(sigma=gyro_std),
             }
         },
         "foot_contact": {
             "left": left_contact,
             "right": right_contact,
-            "left_force": left_force,
-            "right_force": right_force,
+            "left_force": left_force + random.gauss(sigma=foot_force_std_n),
+            "right_force": right_force + random.gauss(sigma=foot_force_std_n)
         }
     }

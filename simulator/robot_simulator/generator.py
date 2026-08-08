@@ -12,10 +12,11 @@ class TelemetryGenerator:
         self.sim_time = 0.0
         self.dt = 1.0 / config["experiment"]["frequency_hz"]
 
-    def next_packet(self):
+    def next_packet(self) -> dict:
         exp = self.config["experiment"]
         robot = self.config["robot"]
         motion = self.config["motion"]
+        noise = self.config["noise"]
 
         self.sim_time += self.dt
 
@@ -31,11 +32,15 @@ class TelemetryGenerator:
             left_phase,
             right_phase,
             robot["mass_kg"],
+            noise["imu_accel_std"],
+            noise["gyro_std"],
+            noise["foot_force_std_n"],
         )
 
         metrics = generate_metrics(
             exp["frequency_hz"],
-            self.dt * 1000
+            self.dt * 1000,
+            noise["latency_std_ms"],
         )
 
         return {
@@ -52,6 +57,7 @@ class TelemetryGenerator:
             "sensors": sensors,
             "control_command": {
                 "mode": mode,
+                "target_velocity": target,
             },
             "metrics": metrics
         }

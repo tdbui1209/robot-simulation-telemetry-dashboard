@@ -25,6 +25,12 @@ def experiment_config() -> dict:
                 "vx": 0.5,
             },
             "gait_frequency_hz": 1.2,
+        },
+        "noise": {
+            "imu_accel_std": 0.03,
+            "gyro_std": 0.005,
+            "latency_std_ms": 5,
+            "foot_force_std_n": 15,
         }
     }
 
