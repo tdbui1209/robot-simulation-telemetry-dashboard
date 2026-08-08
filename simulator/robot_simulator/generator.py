@@ -4,7 +4,7 @@ import math
 from simulator.robot_simulator.gait import gait_phase
 from simulator.robot_simulator.sensors import generate_sensors
 from simulator.robot_simulator.metrics import generate_metrics
-from simulator.robot_simulator.anomalies import anomaly_flags
+from simulator.robot_simulator.anomalies import anomaly_flags, build_event
 
 
 class TelemetryGenerator:
@@ -83,4 +83,5 @@ class TelemetryGenerator:
                 "target_velocity": target,
             },
             "metrics": metrics,
+            "events": build_event(flags, metrics),
         }

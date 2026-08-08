@@ -27,6 +27,7 @@ def test_next_packet_contains_required_metadata_fields(experiment_config):
     assert "sensors" in packet
     assert "control_command" in packet
     assert "metrics" in packet
+    assert "events" in packet
     assert "position" in packet["base_pose"]
     assert "orientation" in packet["base_pose"]
     assert "linear_velocity" in packet["base_pose"]
