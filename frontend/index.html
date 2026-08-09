@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Robot Telemetry Dashboard</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <main class="page-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Release v0.1</p>
+        <h1>Robot Telemetry Dashboard</h1>
+        <p class="subtitle">Live telemetry over WebSocket.</p>
+      </div>
+      <span id="connection-status" class="status status--connecting">connecting</span>
+    </header>
+
+    <section id="empty-state" class="empty-state">
+      <h2>Waiting for telemetry</h2>
+      <p>Start the backend, open this page, then run the simulator.</p>
+    </section>
+
+    <div id="dashboard" hidden>
+      <section class="run-strip">
+        <div><span>Experiment</span><strong id="experiment-id">—</strong></div>
+        <div><span>Run</span><strong id="run-id">—</strong></div>
+        <div><span>Robot</span><strong id="robot-id">—</strong></div>
+        <div><span>Sequence</span><strong id="sequence">—</strong></div>
+      </section>
+
+      <section class="metrics-grid">
+        <article class="metric-card"><span>Sim time</span><strong id="sim-time">—</strong></article>
+        <article class="metric-card"><span>FPS</span><strong id="fps">—</strong></article>
+        <article class="metric-card"><span>Latency</span><strong id="latency">—</strong></article>
+        <article class="metric-card"><span>Stability</span><strong id="stability">—</strong></article>
+        <article class="metric-card"><span>Velocity X</span><strong id="velocity-x">—</strong></article>
+        <article class="metric-card"><span>Tracking error</span><strong id="tracking-error">—</strong></article>
+      </section>
+
+      <section class="content-grid">
+        <article class="panel">
+          <div class="panel-heading"><h2>Base pose</h2><span id="packet-time">—</span></div>
+          <div class="data-grid">
+            <div><span>Position X</span><strong id="position-x">—</strong></div>
+            <div><span>Position Y</span><strong id="position-y">—</strong></div>
+            <div><span>Position Z</span><strong id="position-z">—</strong></div>
+            <div><span>Roll</span><strong id="roll">—</strong></div>
+            <div><span>Pitch</span><strong id="pitch">—</strong></div>
+            <div><span>Yaw</span><strong id="yaw">—</strong></div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-heading"><h2>Sensor snapshot</h2></div>
+          <div class="data-grid">
+            <div><span>Accel Z</span><strong id="accel-z">—</strong></div>
+            <div><span>Gyro Z</span><strong id="gyro-z">—</strong></div>
+            <div><span>Left force</span><strong id="left-force">—</strong></div>
+            <div><span>Right force</span><strong id="right-force">—</strong></div>
+            <div><span>Step time</span><strong id="step-time">—</strong></div>
+            <div><span>Packet size</span><strong id="packet-size">—</strong></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel raw-panel">
+        <div class="panel-heading"><h2>Latest packet</h2><span id="schema-version">—</span></div>
+        <pre id="raw-json">{}</pre>
+      </section>
+    </div>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

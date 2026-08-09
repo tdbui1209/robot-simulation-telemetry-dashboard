@@ -1,0 +1,43 @@
+:root {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #e5e7eb;
+  background: #0b1020;
+}
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; min-height: 100vh; }
+.page-shell { width: min(1180px, calc(100% - 32px)); margin: 0 auto; padding: 36px 0 64px; }
+.topbar { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; margin-bottom: 28px; }
+.eyebrow { margin: 0 0 8px; text-transform: uppercase; letter-spacing: .14em; font-size: 12px; color: #94a3b8; }
+h1 { margin: 0; font-size: clamp(28px, 4vw, 44px); letter-spacing: -.035em; }
+.subtitle { margin: 10px 0 0; color: #94a3b8; }
+.status { padding: 8px 12px; border-radius: 999px; text-transform: capitalize; font-size: 13px; font-weight: 700; border: 1px solid #334155; background: #111827; }
+.status--connected { border-color: #166534; color: #86efac; }
+.status--connecting { border-color: #854d0e; color: #fde047; }
+.status--disconnected, .status--error { border-color: #991b1b; color: #fca5a5; }
+.empty-state, .panel, .metric-card, .run-strip { border: 1px solid #1f2937; background: #111827; border-radius: 16px; }
+.empty-state { padding: 44px; text-align: center; color: #94a3b8; }
+.empty-state h2 { color: #f8fafc; margin-top: 0; }
+.run-strip { display: grid; grid-template-columns: repeat(4, 1fr); overflow: hidden; margin-bottom: 18px; }
+.run-strip > div { padding: 16px 18px; }
+.run-strip span, .data-grid span, .metric-card span { display: block; color: #94a3b8; font-size: 12px; margin-bottom: 6px; }
+.metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 14px; }
+.metric-card { padding: 20px; }
+.metric-card strong { display: block; font-size: 28px; letter-spacing: -.03em; color: #f8fafc; }
+.content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.panel { padding: 20px; }
+.panel-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+.panel-heading h2 { margin: 0; font-size: 17px; }
+.panel-heading span { color: #64748b; font-size: 12px; }
+.data-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.data-grid strong { color: #f8fafc; font-variant-numeric: tabular-nums; }
+.raw-panel pre { margin: 0; max-height: 420px; overflow: auto; padding: 16px; border-radius: 12px; background: #070b14; color: #cbd5e1; font: 12px/1.55 "SFMono-Regular", Consolas, monospace; }
+[hidden] { display: none !important; }
+@media (max-width: 760px) {
+  .topbar { flex-direction: column; }
+  .run-strip, .metrics-grid { grid-template-columns: 1fr 1fr; }
+  .content-grid { grid-template-columns: 1fr; }
+  .data-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .run-strip, .metrics-grid, .data-grid { grid-template-columns: 1fr; }
+}
