@@ -2,8 +2,10 @@ import argparse
 import asyncio
 from pathlib import Path
 import random
+import json
 
 import yaml
+import websockets
 
 from simulator.robot_simulator.generator import TelemetryGenerator
 
@@ -28,13 +30,20 @@ async def main() -> None:
     sleep_sec = 1.0 / hz
     total_steps = int(duration * hz)
 
-    for _ in range(total_steps):
-        packet = generator.next_packet()
-        try:
-            print(f"seq={packet['sequence']} sim_time={packet['sim_time']:.3f}")
-        except Exception as exc:
-            print(f"failed to send telemetry: {exc}")
-        asyncio.sleep(sleep_sec)
+    url = "ws://localhost:8000/ws/telemetry"
+    async with websockets.connect(url) as websocket:
+        for _ in range(total_steps):
+            packet = generator.next_packet()
+            try:
+                await websocket.send(json.dumps(packet))
+
+                print(
+                    f"seq={packet['sequence']}"
+                    f"sim_time={packet['sim_time']:.3f}"
+                )
+            except Exception as exc:
+                print(f"failed to send telemetry: {exc}")
+            asyncio.sleep(sleep_sec)
 
 
 if __name__ == "__main__":
