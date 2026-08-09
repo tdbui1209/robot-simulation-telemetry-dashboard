@@ -6,7 +6,7 @@ experiment:
   robot_id: humanoid_sim_01
   duration_sec: 30
   frequency_hz: 30
-  random_seed: 42
+  random_state: 42
 
 robot:
   type: humanoid
@@ -20,15 +20,11 @@ motion:
     vy: 0.0
     yaw_rate: 0.05
 
-streaming:
-  protocol: websocket_or_http_or_udp
-
 logging:
   format: jsonl
   output_path: logs/exp_walk_001/run_local_001.jsonl
 
 noise:
-  joint_position_std: 0.01
   imu_accel_std: 0.03
   gyro_std: 0.005
   latency_std_ms: 5
@@ -37,4 +33,3 @@ anomalies:
   enabled: true
   latency_spike_probability: 0.01
   packet_drop_probability: 0.005
-  foot_slip_probability: 0.003
