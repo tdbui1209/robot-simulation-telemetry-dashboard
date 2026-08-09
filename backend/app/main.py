@@ -45,12 +45,5 @@ async def telemetry_ws(websocket: WebSocket) -> None:
                 }
             )
 
-            await websocket.send_json(
-                {
-                    "type": "ack",
-                    "sequence": packet.sequence,
-                }
-            )
-
     except WebSocketDisconnect:
         pass
