@@ -34,7 +34,7 @@ async def main() -> None:
             print(f"seq={packet['sequence']} sim_time={packet['sim_time']:.3f}")
         except Exception as exc:
             print(f"failed to send telemetry: {exc}")
-        print(f"sleeping: {sleep_sec}s\n")
+        asyncio.sleep(sleep_sec)
 
 
 if __name__ == "__main__":
