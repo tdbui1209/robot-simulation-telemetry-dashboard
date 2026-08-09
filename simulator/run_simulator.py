@@ -38,12 +38,12 @@ async def main() -> None:
                 await websocket.send(json.dumps(packet))
 
                 print(
-                    f"seq={packet['sequence']}"
+                    f"seq={packet['sequence']} "
                     f"sim_time={packet['sim_time']:.3f}"
                 )
             except Exception as exc:
                 print(f"failed to send telemetry: {exc}")
-            asyncio.sleep(sleep_sec)
+            await asyncio.sleep(sleep_sec)
 
 
 if __name__ == "__main__":
