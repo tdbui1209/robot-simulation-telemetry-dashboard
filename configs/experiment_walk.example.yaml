@@ -9,7 +9,6 @@ experiment:
   random_state: 42
 
 robot:
-  type: humanoid
   mass_kg: 60
   base_height_m: 0.94
 
@@ -19,6 +18,11 @@ motion:
     vx: 0.5
     vy: 0.0
     yaw_rate: 0.05
+  gait_frequency_hz: 1.2
+  lateral_sway_m: 0.03
+  vertical_bob_m: 0.025
+  roll_factor_std: 0.07
+  pitch_factor_std: 0.08
 
 logging:
   format: jsonl
@@ -28,6 +32,7 @@ noise:
   imu_accel_std: 0.03
   gyro_std: 0.005
   latency_std_ms: 5
+  foot_force_std_n: 15
 
 anomalies:
   enabled: true
